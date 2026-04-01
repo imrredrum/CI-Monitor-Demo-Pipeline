@@ -2,6 +2,12 @@ name: CI Random
 
 on:
   workflow_dispatch:
+    inputs:
+      success_rate:
+        description: "成功率 (0-100)"
+        required: false
+        default: "50"
+        type: string
 
 jobs:
   random-result:
@@ -10,9 +16,16 @@ jobs:
       - name: Random outcome
         run: |
           echo "Running random test…"
-          if [ $((RANDOM % 2)) -eq 0 ]; then
-            echo "✅ Random Success"
+          SUCCESS_RATE="${{ github.event.inputs.success_rate || '50' }}"
+          echo "設定成功率: $SUCCESS_RATE%"
+
+          # 產生 0-99 的隨機數
+          RANDOM_NUM=$((RANDOM % 100))
+          echo "隨機數: $RANDOM_NUM (需要小於 $SUCCESS_RATE 才成功)"
+
+          if [ $RANDOM_NUM -lt $SUCCESS_RATE ]; then
+            echo "✅ Random Success (probability: $SUCCESS_RATE%)"
           else
-            echo "❌ Random Failure"
+            echo "❌ Random Failure (probability: $((100 - $SUCCESS_RATE))%)"
             exit 1
           fi

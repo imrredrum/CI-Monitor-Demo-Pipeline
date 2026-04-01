@@ -24,7 +24,7 @@
 
 - 文件：`ci-random.yml`
 - 觸發：手動觸發
-- 執行：50% 機率成功
+- 執行：預設 50% 機率成功（可透過參數調整成功率）
 
 ### 4. ⏰ Scheduled Pipeline - 定期執行
 
@@ -57,7 +57,13 @@ gh auth login
 # 3. 快速觸發所有 pipelines 產生數據
 make trigger-all
 
-# 4. 查看產生的 pipeline runs
+# 4. 批量產生大量隨機數據（預設 20 個，80% 成功率）
+make generate-data
+
+# 5. 批量產生指定數量的隨機數據
+make generate-data-50  # 產生 50 個
+
+# 6. 查看產生的 pipeline runs
 make list-runs
 ```
 
@@ -87,10 +93,14 @@ make trigger-all
 # 分別觸發
 make trigger-basic
 make trigger-fail
-make trigger-random
-make trigger-scheduled  # 注意：此 pipeline 會自動每 10 分鐘執行
+make trigger-random    # 50% 成功，50% 失敗
+make trigger-scheduled # 注意：此 pipeline 會自動每 10 分鐘執行
 make trigger-long
 make trigger-matrix
+
+# 批量產生大量數據（使用 80% 成功率）
+make generate-data     # 預設產生 20 個 random runs (80% 成功)
+make generate-data-50  # 產生 50 個 random runs (80% 成功)
 
 # 查看 runs
 make list-runs
