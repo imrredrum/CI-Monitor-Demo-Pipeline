@@ -1,0 +1,18 @@
+name: CI Random
+
+on:
+  workflow_dispatch:
+
+jobs:
+  random-result:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Random outcome
+        run: |
+          echo "Running random test…"
+          if [ $((RANDOM % 2)) -eq 0 ]; then
+            echo "✅ Random Success"
+          else
+            echo "❌ Random Failure"
+            exit 1
+          fi

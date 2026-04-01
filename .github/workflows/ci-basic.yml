@@ -1,0 +1,17 @@
+name: CI Basic
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Build success"
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - run: echo "Test success"

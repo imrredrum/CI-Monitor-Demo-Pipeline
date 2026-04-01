@@ -1,0 +1,13 @@
+name: CI Matrix
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node: [18, 20]
+    steps:
+      - run: echo "Testing on Node ${{ matrix.node }}"

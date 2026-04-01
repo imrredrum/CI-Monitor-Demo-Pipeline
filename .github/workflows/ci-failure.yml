@@ -1,0 +1,12 @@
+name: CI Failure
+
+on:
+  workflow_dispatch:
+
+jobs:
+  fail-job:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          echo "This will fail"
+          exit 1
