@@ -66,8 +66,9 @@ generate-data-%:
 		gh workflow run ci-random.yml -f success_rate=80; \
 		sleep 2; \
 	done
-	@expected_success=$$(($$* * 80 / 100)); \
-	expected_failure=$$(($$* - $$expected_success)); \
+	@total=$*; \
+	expected_success=$$((total * 80 / 100)); \
+	expected_failure=$$((total - expected_success)); \
 	echo "✅ 已觸發 $* 個 random pipelines，預期約 $$expected_success 個成功，$$expected_failure 個失敗"
 
 # 查看 runs
